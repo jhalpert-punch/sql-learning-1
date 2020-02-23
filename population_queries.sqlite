@@ -1,0 +1,44 @@
+-- This is the first query:
+
+SELECT DISTINCT year from population_years;
+
+-- Add your additional queries below:
+
+SELECT MAX(population) AS 'Gabon Max Population'
+FROM population_years
+WHERE country = 'Gabon';
+
+SELECT 
+  country AS 'country', 
+  population AS 'population'
+FROM population_years
+WHERE year = 2005
+ORDER BY population ASC
+LIMIT 10;
+
+SELECT 
+  country AS 'country',
+  population AS 'population'
+FROM population_years
+WHERE population > 100 AND year = 2010;
+
+SELECT DISTINCT country
+FROM population_years
+WHERE country LIKE '%island%';
+
+WITH ind_2000 
+  AS(
+SELECT population AS 'pop_2000'
+FROM population_years
+WHERE country = "Indonesia"
+  AND year = 2000
+)
+,ind_2010 AS (
+SELECT population AS 'pop_2010'
+FROM population_years
+WHERE country = "Indonesia"
+  AND year = 2010)
+SELECT SUM(pop_2010 - pop_2000) AS "ind_diff_2010-2000"
+FROM ind_2000
+CROSS JOIN ind_2010;
+
